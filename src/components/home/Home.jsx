@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { fetchGenre, fetchMovies } from "../../service";
+import { fetchGenre, fetchMovieByGenre, fetchMovies } from "../../service";
 import RBCarousel from "react-bootstrap-carousel";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
+import { Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
 export function Home() {
   const [nowPlaying, setNewPlaying] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [movieByGenre, setMovieByGenre] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
       setNewPlaying(await fetchMovies());
       setGenres(await fetchGenre());
+      setMovieByGenre(await fetchMovieByGenre());
     };
     fetchAPI();
   }, []);
 
-  const movies = nowPlaying.slice(0, 5).map((item, index) => {
+  const movies = nowPlaying.slice(0, 10).map((item, index) => {
     return (
       <div style={{ height: 500, width: "100%" }} key={index}>
         <div className="carousel-center">
@@ -47,6 +51,27 @@ export function Home() {
     );
   });
 
+  const movieList = movieByGenre.slice(0, 4).map((item, index) => {
+    return (
+      <div className="col-md-3 col-sm-6" key={index}>
+        <div className="card">
+          <Link to={`/movie/${item.id}`}>
+            <img src={item.poster} alt={item.title} className="img-fluid"></img>
+          </Link>
+        </div>
+        <div className="mt-3">
+          <p style={{ fontWeight: "bolder" }}>{item.title}</p>
+          <p>Rating: {item.rating} </p>
+          <ReactStars
+            count={item.rating}
+            size={20}
+            color1={"#f4c10f"}
+          ></ReactStars>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div className="container">
       <div className="row mt-2">
@@ -66,6 +91,14 @@ export function Home() {
       <div className="row mt-3">
         <div className="col">
           <ul className="list-inline">{genreList}</ul>
+        </div>
+      </div>
+      <div className="row mt-3">{movieList}</div>
+      <div className="row mt-3">
+        <div className="col">
+          <p className="font-weight-bold" style={{ color: "#5a606b" }}>
+            TRENDING PERSONS ON THIS WEEK
+          </p>
         </div>
       </div>
     </div>
