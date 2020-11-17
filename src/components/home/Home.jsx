@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { fetchMovies } from "../../service";
+import { fetchGenre, fetchMovies } from "../../service";
 import RBCarousel from "react-bootstrap-carousel";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 
 export function Home() {
   const [nowPlaying, setNewPlaying] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
       setNewPlaying(await fetchMovies());
+      setGenres(await fetchGenre());
     };
     fetchAPI();
   }, []);
@@ -35,6 +37,16 @@ export function Home() {
     );
   });
 
+  const genreList = genres.map((item, index) => {
+    return (
+      <li className="list-inline-item" key={index}>
+        <button type="button" className="btn btn-outline-info">
+          {item.name}
+        </button>
+      </li>
+    );
+  });
+
   return (
     <div className="container">
       <div className="row mt-2">
@@ -48,6 +60,12 @@ export function Home() {
           >
             {movies}
           </RBCarousel>
+        </div>
+      </div>
+
+      <div className="row mt-3">
+        <div className="col">
+          <ul className="list-inline">{genreList}</ul>
         </div>
       </div>
     </div>
