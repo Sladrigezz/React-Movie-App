@@ -29,6 +29,7 @@ export const fetchMovies = async () => {
       overview: m["overview"],
       rating: m["vote_average"],
     }));
+
     return modifiedData;
   } catch (error) {}
 };
@@ -86,7 +87,7 @@ export const fetchPersons = async () => {
       id: p["id"],
       popularity: p["popularity"],
       name: p["name"],
-      profileImg: "https://images.tmdb.org/t/p/w200" + p["profile_path"],
+      profileImg: "https://image.tmdb.org/t/p/w200" + p["profile_path"],
       known: p["known_for_department"],
     }));
     return modifiedData;
@@ -112,6 +113,7 @@ export const fetchTopratedMovie = async () => {
       overview: m["overview"],
       rating: m["vote_average"],
     }));
+
     return modifiedData;
   } catch (error) {}
 };
