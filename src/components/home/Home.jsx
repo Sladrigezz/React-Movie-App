@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
+  fetchMovies,
   fetchGenre,
   fetchMovieByGenre,
-  fetchMovies,
   fetchPersons,
   fetchTopratedMovie,
 } from "../../service";
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 export function Home() {
-  const [nowPlaying, setNewPlaying] = useState([]);
+  const [nowPlaying, setNowPlaying] = useState([]);
   const [genres, setGenres] = useState([]);
   const [movieByGenre, setMovieByGenre] = useState([]);
   const [persons, setPersons] = useState([]);
@@ -20,16 +20,17 @@ export function Home() {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      setNewPlaying(await fetchMovies());
+      setNowPlaying(await fetchMovies());
       setGenres(await fetchGenre());
       setMovieByGenre(await fetchMovieByGenre());
       setPersons(await fetchPersons());
       setTopRated(await fetchTopratedMovie());
     };
+
     fetchAPI();
   }, []);
 
-  const movies = nowPlaying.slice(0, 10).map((item, index) => {
+  const movies = nowPlaying.slice(0, 5).map((item, index) => {
     return (
       <div style={{ height: 500, width: "100%" }} key={index}>
         <div className="carousel-center">
@@ -66,12 +67,12 @@ export function Home() {
       <div className="col-md-3 col-sm-6" key={index}>
         <div className="card">
           <Link to={`/movie/${item.id}`}>
-            <img src={item.poster} alt={item.title} className="img-fluid"></img>
+            <img className="img-fluid" src={item.poster} alt={item.title}></img>
           </Link>
         </div>
         <div className="mt-3">
           <p style={{ fontWeight: "bolder" }}>{item.title}</p>
-          <p>Rating: {item.rating} </p>
+          <p>Rated: {item.rating}</p>
           <ReactStars
             count={item.rating}
             size={20}
@@ -86,10 +87,10 @@ export function Home() {
     return (
       <div className="col-md-3 text-center" key={i}>
         <img
+          className="img-fluid rounded-circle mx-auto d-block"
           src={p.profileImg}
           alt={p.name}
-          className="img-fluid rounded-circle mx-auto d-block"
-        />
+        ></img>
         <p className="font-weight-bold text-center">{p.name}</p>
         <p
           className="font-weight-light text-center"
@@ -106,12 +107,12 @@ export function Home() {
       <div className="col-md-3" key={index}>
         <div className="card">
           <Link to={`/movie/${item.id}`}>
-            <img src={item.poster} alt={item.title} className="img-fluid" />
+            <img className="img-fluid" src={item.poster} alt={item.title}></img>
           </Link>
         </div>
         <div className="mt-3">
           <p style={{ fontWeight: "bolder" }}>{item.title}</p>
-          <p>Rating: {item.rating} </p>
+          <p>Rating: {item.rating}</p>
           <ReactStars
             count={item.rating}
             size={20}
@@ -143,14 +144,16 @@ export function Home() {
           <ul className="list-inline">{genreList}</ul>
         </div>
       </div>
+
       <div className="row mt-3">
         <div className="col">
           <div className="float-right">
-            <div className="far fa-arrow-alt-circle-right"></div>
+            <i className="far fa-arrow-alt-circle-right"></i>
           </div>
         </div>
       </div>
       <div className="row mt-3">{movieList}</div>
+
       <div className="row mt-3">
         <div className="col">
           <p className="font-weight-bold" style={{ color: "#5a606b" }}>
@@ -162,11 +165,11 @@ export function Home() {
       <div className="row mt-3">
         <div className="col">
           <div className="float-right">
-            <div className="far fa-arrow-alt-circle-right"></div>
+            <i className="far fa-arrow-alt-circle-right"></i>
           </div>
         </div>
       </div>
-      <div className="row nt-3">{trendingPersons}</div>
+      <div className="row mt-3">{trendingPersons}</div>
 
       <div className="row mt-3">
         <div className="col">
@@ -179,12 +182,14 @@ export function Home() {
       <div className="row mt-3">
         <div className="col">
           <div className="float-right">
-            <div className="far fa-arrow-alt-circle-right"></div>
+            <i className="far fa-arrow-alt-circle-right"></i>
           </div>
         </div>
       </div>
       <div className="row mt-3">{topRatedList}</div>
-      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }} />
+
+      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
+
       <div className="row mt-3">
         <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
           <h3>ABOUT PROJECT</h3>
@@ -209,17 +214,17 @@ export function Home() {
             </li>
             <li className="list-inline-item">
               <a href="/" style={{ color: "#f4c10f" }}>
-                <i class="fab fa-vk"></i>
+                <i className="fab fa-vk"></i>
               </a>
             </li>
             <li className="list-inline-item">
               <a href="/" style={{ color: "#f4c10f" }}>
-                <i class="fab fa-instagram"></i>
+                <i className="fab fa-instagram"></i>
               </a>
             </li>
             <li className="list-inline-item">
               <a href="/" style={{ color: "#f4c10f" }}>
-                <i class="fab fa-youtube"></i>
+                <i className="fab fa-youtube"></i>
               </a>
             </li>
           </ul>
