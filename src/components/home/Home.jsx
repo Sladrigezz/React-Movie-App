@@ -143,12 +143,27 @@ export function Home() {
           <ul className="list-inline">{genreList}</ul>
         </div>
       </div>
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <div className="far fa-arrow-alt-circle-right"></div>
+          </div>
+        </div>
+      </div>
       <div className="row mt-3">{movieList}</div>
       <div className="row mt-3">
         <div className="col">
           <p className="font-weight-bold" style={{ color: "#5a606b" }}>
             TRENDING PERSONS ON THIS WEEK
           </p>
+        </div>
+      </div>
+
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <div className="far fa-arrow-alt-circle-right"></div>
+          </div>
         </div>
       </div>
       <div className="row nt-3">{trendingPersons}</div>
@@ -160,7 +175,85 @@ export function Home() {
           </p>
         </div>
       </div>
+
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <div className="far fa-arrow-alt-circle-right"></div>
+          </div>
+        </div>
+      </div>
       <div className="row mt-3">{topRatedList}</div>
+      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }} />
+      <div className="row mt-3">
+        <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
+          <h3>ABOUT PROJECT</h3>
+          <p>CREATED USING REACT</p>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti
+            laborum nihil, laudantium laboriosam dolorem optio assumenda
+            recusandae corporis voluptatum dolorum pariatur ullam quam minima
+            harum fuga id tempora exercitationem repellat.
+          </p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Repellendus doloremque, sequi exercitationem, vel ex voluptatibus,
+            veritatis esse officiis architecto et iure earum mollitia pariatur
+            recusandae voluptates saepe porro nihil quas?
+          </p>
+          <ul className="list-inline">
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i className="fab fa-facebook"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i class="fab fa-vk"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="col-md-4 col-sm-6" style={{ color: "#5a606b" }}>
+          <h3>KEEP IN TOUCH</h3>
+          <ul className="list-unstyled">
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fa-map-marker-alt"></i> Addres:
+                </strong>{" "}
+                Moscow, Russia
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fas fa-phone"></i> Phone
+                </strong>{" "}
+                +8 (123) 456 78 90
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fa-envelope"></i> Email:
+                </strong>{" "}
+                Email@email.ru
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
