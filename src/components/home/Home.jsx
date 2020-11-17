@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchGenre, fetchMovieByGenre, fetchMovies } from "../../service";
+import {
+  fetchGenre,
+  fetchMovieByGenre,
+  fetchMovies,
+  fetchPersons,
+} from "../../service";
 import RBCarousel from "react-bootstrap-carousel";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import { Link } from "react-router-dom";
@@ -9,12 +14,14 @@ export function Home() {
   const [nowPlaying, setNewPlaying] = useState([]);
   const [genres, setGenres] = useState([]);
   const [movieByGenre, setMovieByGenre] = useState([]);
+  const [persons, setPersons] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
       setNewPlaying(await fetchMovies());
       setGenres(await fetchGenre());
       setMovieByGenre(await fetchMovieByGenre());
+      setPersons(await fetchPersons());
     };
     fetchAPI();
   }, []);
@@ -72,6 +79,25 @@ export function Home() {
     );
   });
 
+  const trendingPersons = persons.slice(0, 4).map((p, i) => {
+    return (
+      <div className="col-md-3 text-center" key={i}>
+        <img
+          src={p.profileImg}
+          alt={p.name}
+          className="img-fluid rounded-circle mx-auto d-block"
+        />
+        <p className="font-weight-bold text-center">{p.name}</p>
+        <p
+          className="font-weight-light text-center"
+          style={{ color: "#5a606b" }}
+        >
+          Trending for {p.known}
+        </p>
+      </div>
+    );
+  });
+
   return (
     <div className="container">
       <div className="row mt-2">
@@ -101,6 +127,7 @@ export function Home() {
           </p>
         </div>
       </div>
+      <div className="row nt-3">{trendingPersons}</div>
     </div>
   );
 }
