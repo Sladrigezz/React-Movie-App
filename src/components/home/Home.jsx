@@ -4,6 +4,7 @@ import {
   fetchMovieByGenre,
   fetchMovies,
   fetchPersons,
+  fetchTopratedMovie,
 } from "../../service";
 import RBCarousel from "react-bootstrap-carousel";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
@@ -15,6 +16,7 @@ export function Home() {
   const [genres, setGenres] = useState([]);
   const [movieByGenre, setMovieByGenre] = useState([]);
   const [persons, setPersons] = useState([]);
+  const [topRated, setTopRated] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -22,6 +24,7 @@ export function Home() {
       setGenres(await fetchGenre());
       setMovieByGenre(await fetchMovieByGenre());
       setPersons(await fetchPersons());
+      setTopRated(await fetchTopratedMovie());
     };
     fetchAPI();
   }, []);
@@ -98,6 +101,27 @@ export function Home() {
     );
   });
 
+  const topRatedList = topRated.slice(0, 4).map((item, index) => {
+    return (
+      <div className="col-md-3" key={index}>
+        <div className="card">
+          <Link to={`/movie/${item.id}`}>
+            <img src={item.poster} alt={item.title} className="img-fluid" />
+          </Link>
+        </div>
+        <div className="mt-3">
+          <p style={{ fontWeight: "bolder" }}>{item.title}</p>
+          <p>Rating: {item.rating} </p>
+          <ReactStars
+            count={item.rating}
+            size={20}
+            color1={"#f4c10f"}
+          ></ReactStars>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div className="container">
       <div className="row mt-2">
@@ -128,6 +152,15 @@ export function Home() {
         </div>
       </div>
       <div className="row nt-3">{trendingPersons}</div>
+
+      <div className="row mt-3">
+        <div className="col">
+          <p className="font-weight-bold" style={{ color: "#5a606b" }}>
+            TOP RATED MOVIES
+          </p>
+        </div>
+      </div>
+      <div className="row mt-3">{topRatedList}</div>
     </div>
   );
 }
