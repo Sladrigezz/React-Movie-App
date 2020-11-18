@@ -30,7 +30,11 @@ export function Home() {
     fetchAPI();
   }, []);
 
-  const movies = nowPlaying.slice(0, 5).map((item, index) => {
+  const handleGenreClick = async (genre_id) => {
+    setMovieByGenre(await fetchMovieByGenre(genre_id));
+  };
+
+  const movies = nowPlaying.slice(0, 10).map((item, index) => {
     return (
       <div style={{ height: 500, width: "100%" }} key={index}>
         <div className="carousel-center">
@@ -55,7 +59,13 @@ export function Home() {
   const genreList = genres.map((item, index) => {
     return (
       <li className="list-inline-item" key={index}>
-        <button type="button" className="btn btn-outline-info">
+        <button
+          type="button"
+          className="btn btn-outline-info"
+          onClick={() => {
+            handleGenreClick(item.id);
+          }}
+        >
           {item.name}
         </button>
       </li>
